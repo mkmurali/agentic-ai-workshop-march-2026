@@ -1,0 +1,35 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+---
+
+<footer class="custom-footer">
+  <p>
+    Built with <span class="heart">&hearts;</span> by
+    <a href="https://github.com/mkmurali" target="_blank" rel="noopener noreferrer">Murali</a>
+  </p>
+</footer>
+
+<style>
+  .custom-footer {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    border-top: 1px solid var(--sl-color-gray-5, #e2e2e2);
+    font-size: 0.85rem;
+    color: var(--sl-color-gray-3, #666);
+  }
+
+  .custom-footer .heart {
+    color: #e25555;
+    font-size: 1.1em;
+  }
+
+  .custom-footer a {
+    color: var(--sl-color-text-accent, #ff9900);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .custom-footer a:hover {
+    text-decoration: underline;
+  }
+</style>

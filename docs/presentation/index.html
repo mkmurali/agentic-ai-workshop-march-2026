@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic AI Workshop</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css">
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- TITLE SLIDE                             -->
+      <!-- ═══════════════════════════════════════ -->
+      <section class="title-slide">
+        <img src="images/agenticpi-day.png" alt="Agentic Pi Day" class="hero-image">
+        <h1>Agentic <span class="accent">&pi;</span> Day</h1>
+        <p>3.14 Hours of Agentic AI | Unscripted Building &amp; AMA</p>
+        <p class="subtitle">March 14, 2026 &bull; 3:14 PM &bull; Strands SDK &bull; AWS</p>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- THE STORY                               -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>A Little Background...</h2>
+        <p>No slides. No scripts. No fluff. That was the plan.</p>
+        <p>I posted on LinkedIn on March 10th around noon, announcing a live, unscripted session:</p>
+        <div class="highlight-box">
+          For exactly <strong>3.14 hours</strong>, we're going LIVE to build a real agentic AI product from scratch:
+          architecture decisions, debugging, the whole unfiltered journey. Open Q&amp;A the entire time.
+        </div>
+        <br>
+        <p class="footnote"><em>The only thing scripted? The start time. 3:14 PM. Because... &pi;.</em></p>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- THE PLOT TWIST                          -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>Then...</h2>
+        <p class="fragment" style="font-size: 1.8em; font-weight: 700; margin-top: 1em;"><span class="accent">110+
+            people</span> signed up. <span style="font-size: 0.5em; font-weight: 400; color: #999;">(and counting, as of
+            24 hours before the event)</span></p>
+        <br>
+        <div class="highlight-box fragment">
+          So prepared these notes, not as a script, but as a safety net. The live session stays messy and real. These
+          materials ensure everyone walks away with complete code, concepts, and references.
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- AGENDA                                  -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>Agenda</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Module</th>
+              <th>What We Build</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0:00</td>
+              <td>Setup &amp; Intro</td>
+              <td>Environment ready + concepts</td>
+            </tr>
+            <tr>
+              <td>0:20</td>
+              <td>Module 1: First Agent</td>
+              <td>Basic FAQ agent</td>
+            </tr>
+            <tr>
+              <td>0:45</td>
+              <td>Module 2: Tools &amp; MCP</td>
+              <td>Agent with tools + MCP server</td>
+            </tr>
+            <tr>
+              <td>1:20</td>
+              <td>Module 3: Memory</td>
+              <td>Persistent memory + context mgmt</td>
+            </tr>
+            <tr>
+              <td>1:50</td>
+              <td>Module 4: Multi-Agent</td>
+              <td>Triage + specialist agents</td>
+            </tr>
+            <tr>
+              <td>2:20</td>
+              <td>Module 5: Evals &amp; Safety</td>
+              <td>Eval suite + guardrails + OTel</td>
+            </tr>
+            <tr>
+              <td>2:50</td>
+              <td>Module 6: Deploy</td>
+              <td>Live on AWS AgentCore</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- WHAT WE'RE BUILDING                     -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>What We're Building</h2>
+        <h3><span class="accent">SupportBot</span>: AI Customer Support Agent</h3>
+        <div class="highlight-box">
+          A multi-agent system that triages customer requests and routes them to specialist agents (billing, technical,
+          returns), with tools, memory, safety guardrails, and deployed on AWS.
+        </div>
+        <br>
+        <p><span class="tag">Strands SDK</span> <span class="tag">Amazon Bedrock</span> <span class="tag">MCP</span>
+          <span class="tag">AgentCore</span> <span class="tag">OpenTelemetry</span></p>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- WHAT IS AGENTIC AI?                     -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>What is Agentic AI?</h2>
+        <p>AI systems that can <strong>autonomously</strong> perceive, reason, act, and learn</p>
+        <br>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Chatbot</th>
+              <th>Copilot</th>
+              <th>Agent</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Reasoning</strong></td>
+              <td>Single-turn</td>
+              <td>Multi-turn</td>
+              <td>Multi-step planning</td>
+            </tr>
+            <tr>
+              <td><strong>Actions</strong></td>
+              <td>Reply only</td>
+              <td>Suggest</td>
+              <td>Execute tools</td>
+            </tr>
+            <tr>
+              <td><strong>Memory</strong></td>
+              <td>None</td>
+              <td>Session</td>
+              <td>Persistent</td>
+            </tr>
+            <tr>
+              <td><strong>Autonomy</strong></td>
+              <td>None</td>
+              <td>Low</td>
+              <td>High</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- THE AGENTIC LOOP                        -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>The Agentic Loop</h2>
+        <div class="mermaid">
+          <pre>
+flowchart TD
+    A["User Prompt"] --> B["🧠 REASON\nLLM thinks about the task"]
+    B --> C{"DECIDE"}
+    C -->|"Done"| D["✅ RESPOND\nReturn final answer"]
+    C -->|"Need more info"| E["🔧 ACT\nCall a tool"]
+    E --> F["👁️ OBSERVE\nSee tool results"]
+    F --> B
+          </pre>
+        </div>
+        <p>This <strong>Reason → Act → Observe</strong> loop is the foundation of all agents</p>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- CORE COMPONENTS                         -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>Core Components of an Agent</h2>
+        <div class="two-col">
+          <div>
+            <h3 class="component-title">🧠 Model (The Brain)</h3>
+            <p class="footnote">LLM for reasoning &amp; planning<br>Amazon Bedrock + Claude Sonnet</p>
+
+            <h3 class="component-title">📝 System Prompt (The Job)</h3>
+            <p class="footnote">Defines personality, responsibilities, constraints</p>
+
+            <h3 class="component-title">🔧 Tools (The Hands)</h3>
+            <p class="footnote">Python functions the agent can call<br>APIs, databases, MCP servers</p>
+          </div>
+          <div>
+            <h3 class="component-title">💾 Memory (The Recall)</h3>
+            <p class="footnote">Session, persistent, episodic memory</p>
+
+            <h3 class="component-title">🎭 Orchestration (The Coordination)</h3>
+            <p class="footnote">Multi-agent patterns: triage, swarm, graph</p>
+
+            <h3 class="component-title">🛡️ Guardrails (The Safety)</h3>
+            <p class="footnote">Input/output validation, evals, observability</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- STRANDS AGENTS SDK                      -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>Strands Agents SDK</h2>
+        <p>Open-source, model-driven agent framework from AWS</p>
+        <pre><code class="language-python">from strands import Agent, tool
+
+@tool
+def lookup_order(order_id: str) -> dict:
+    """Look up a customer order by ID."""
+    return database.get_order(order_id)
+
+agent = Agent(
+    system_prompt="You are SupportBot...",
+    tools=[lookup_order],
+)
+
+response = agent("What's the status of order ORD-10001?")</code></pre>
+        <p class="footnote">Used in production by Amazon Q Developer, AWS Glue, and more</p>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- ARCHITECTURE PATTERNS                   -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>Agent Architecture Patterns</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Pattern</th>
+              <th>How It Works</th>
+              <th>Best For</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ReAct</strong></td>
+              <td>Reason → Act → Observe loop</td>
+              <td>General purpose (default)</td>
+            </tr>
+            <tr>
+              <td><strong>Plan-and-Execute</strong></td>
+              <td>Plan all steps, then execute</td>
+              <td>Complex multi-step tasks</td>
+            </tr>
+            <tr>
+              <td><strong>Reflexion</strong></td>
+              <td>Generate → Critique → Refine</td>
+              <td>Quality-sensitive outputs</td>
+            </tr>
+            <tr>
+              <td><strong>ReWOO</strong></td>
+              <td>Separate plan/execute/solve</td>
+              <td>Parallel tool execution</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <div class="highlight-box">Strands uses <strong>ReAct</strong> by default. The LLM naturally reasons and selects
+          tools in a loop.</div>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- MULTI-AGENT PATTERNS                    -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>Multi-Agent Patterns</h2>
+        <div class="three-col">
+          <div>
+            <h3 class="col-title">Agents-as-Tools ✅</h3>
+            <div class="mermaid">
+              <pre>
+flowchart TD
+    T["🎯 Triage"] --> B["💰 Billing"]
+    T --> Tech["🔧 Technical"]
+    T --> R["📦 Returns"]
+            </pre>
+            </div>
+          </div>
+          <div>
+            <h3 class="col-title">Swarm</h3>
+            <div class="mermaid">
+              <pre>
+flowchart TD
+    A["Agent A"] -->|handoff| B["Agent B"]
+    B -->|handoff| C["Agent C"]
+    C -->|handoff| A
+            </pre>
+            </div>
+          </div>
+          <div>
+            <h3 class="col-title">Graph</h3>
+            <div class="mermaid">
+              <pre>
+flowchart TD
+    A --> B & C --> D
+            </pre>
+            </div>
+          </div>
+        </div>
+        <p><strong>Today:</strong> Agents-as-Tools, where a triage agent delegates to specialist agents</p>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- MCP                                     -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>Model Context Protocol (MCP)</h2>
+        <p>Open standard for agent ↔ tool communication</p>
+        <div class="highlight-box">
+          Think of MCP as <strong>"USB-C for AI tools"</strong>. Any MCP server works with any MCP client
+        </div>
+        <br>
+        <pre><code class="language-python">from fastmcp import FastMCP
+
+mcp = FastMCP(name="Product Catalog")
+
+@mcp.tool()
+def get_product(sku: str) -> dict:
+    """Get product details by SKU."""
+    return products[sku]</code></pre>
+        <p class="footnote">Transport: <strong>stdio</strong> (local) | <strong>HTTP</strong> (remote) |
+          <strong>SSE</strong> (streaming)</p>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- CONTEXT MANAGEMENT                      -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>Hierarchical Context Management</h2>
+        <div class="mermaid">
+          <pre>
+flowchart LR
+    subgraph L1["🟢 L1: Always Loaded"]
+        A1["System Prompt"] ~~~ A2["Tool Defs"] ~~~ A3["Conversation"]
+    end
+    subgraph L2["🟡 L2: On-Demand"]
+        B1["FAQ"] ~~~ B2["Memory"] ~~~ B3["Policies"]
+    end
+    subgraph L3["🔵 L3: External APIs"]
+        C1["Catalog"] ~~~ C2["Orders"] ~~~ C3["Tickets"]
+    end
+    L1 --> L2 --> L3
+          </pre>
+        </div>
+        <div class="highlight-box"><strong>Skills.md Pattern:</strong> Frontmatter (name + description) always visible.
+          Full instructions loaded only when the skill is activated.</div>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- EVALS                                   -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>Agent Evaluations</h2>
+        <p>Agents are <strong>non-deterministic</strong>: same input, different (valid) outputs</p>
+        <br>
+        <table>
+          <thead>
+            <tr>
+              <th>Dimension</th>
+              <th>What to Measure</th>
+              <th>Method</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Task Completion</td>
+              <td>Did it solve the problem?</td>
+              <td>Keywords + LLM Judge</td>
+            </tr>
+            <tr>
+              <td>Tool Selection</td>
+              <td>Right tools called?</td>
+              <td>Trace analysis</td>
+            </tr>
+            <tr>
+              <td>Safety</td>
+              <td>No harmful outputs?</td>
+              <td>Guardrail checks</td>
+            </tr>
+            <tr>
+              <td>Reasoning</td>
+              <td>Logical path?</td>
+              <td>LLM-as-Judge</td>
+            </tr>
+            <tr>
+              <td>Efficiency</td>
+              <td>Tokens / latency</td>
+              <td>OTEL metrics</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <p class="footnote"><strong>Best practice:</strong> Automated evals (CI) + LLM-as-Judge (periodic) + Human
+          review (calibration)</p>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- OBSERVABILITY                           -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>Observability with OpenTelemetry</h2>
+        <div class="mermaid">
+          <pre>
+gantt
+    title Agent Request Trace (1.2s total)
+    dateFormat X
+    axisFormat %L ms
+    section Model
+    model_inference (150 tokens)    :0, 400
+    model_inference (200 tokens)    :410, 800
+    section Tools
+    tool_call lookup_order          :400, 410
+    section Response
+    streaming response              :800, 1200
+          </pre>
+        </div>
+        <p class="footnote">Strands emits OTEL-compliant spans → CloudWatch, Datadog, Jaeger</p>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- AWS AGENTCORE                           -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>Amazon Bedrock AgentCore</h2>
+        <p>Managed platform for deploying AI agents at scale</p>
+        <br>
+        <table>
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>What It Does</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Runtime</strong></td>
+              <td>Serverless hosting (up to 8h sessions)</td>
+            </tr>
+            <tr>
+              <td><strong>Gateway</strong></td>
+              <td>Convert APIs → MCP tools</td>
+            </tr>
+            <tr>
+              <td><strong>Identity</strong></td>
+              <td>Auth (Cognito, Okta, Entra ID)</td>
+            </tr>
+            <tr>
+              <td><strong>Memory</strong></td>
+              <td>Persistent + episodic memory</td>
+            </tr>
+            <tr>
+              <td><strong>Policy</strong></td>
+              <td>Natural language guardrails</td>
+            </tr>
+            <tr>
+              <td><strong>Evaluations</strong></td>
+              <td>13 pre-built eval metrics</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <pre><code class="language-bash">agentcore configure -e app.py
+agentcore launch
+agentcore invoke '{"prompt": "Help me with my order"}'</code></pre>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- SUPPORTBOT ARCHITECTURE                 -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>SupportBot Architecture</h2>
+        <div class="mermaid">
+          <pre>
+flowchart LR
+    User["👤 User"] --> Triage["🎯 Triage Agent"]
+    Triage --> Billing["💰 Billing"]
+    Triage --> Technical["🔧 Technical"]
+    Triage --> Returns["📦 Returns"]
+    subgraph Tools["Shared Tools"]
+        T1["Order Lookup"] ~~~ T2["KB Search"] ~~~ T3["Tickets"] ~~~ T4["MCP Catalog"]
+    end
+    Billing --> Tools
+    Technical --> Tools
+    Returns --> Tools
+          </pre>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- LET'S BUILD!                            -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>Let's Build! 🚀</h2>
+        <br>
+        <div class="highlight-box">
+          <strong>Module 1:</strong> Your First Agent<br>
+          <code>python module_01_first_agent/agent.py</code>
+        </div>
+        <br>
+        <p>Open the workshop docs for step-by-step instructions</p>
+        <p class="footnote">Each module builds on the previous one, and by the end, you'll have a production-ready
+          multi-agent system.</p>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- MODULE TRANSITION SLIDES                -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <div class="module-header">MODULE 2</div>
+        <h2>Custom Tools &amp; MCP</h2>
+        <p>Extending agents with tools and the Model Context Protocol</p>
+        <br>
+        <pre><code class="language-python">@tool
+def lookup_order(order_id: str) -> dict:
+    """Look up a customer order."""
+    return ORDERS.get(order_id)</code></pre>
+        <br>
+        <p class="footnote">Tools turn agents from "answering" to "doing"</p>
+      </section>
+
+      <section>
+        <div class="module-header">MODULE 3</div>
+        <h2>Memory &amp; Context</h2>
+        <p>Making agents remember and managing the context window</p>
+        <br>
+        <ul>
+          <li><strong>Conversation memory</strong>: current session (built-in)</li>
+          <li><strong>Persistent memory</strong>: across sessions (custom store)</li>
+          <li><strong>Hierarchical context</strong>: L1/L2/L3 loading</li>
+          <li><strong>Skills.md pattern</strong>: modular, on-demand context</li>
+        </ul>
+      </section>
+
+      <section>
+        <div class="module-header">MODULE 4</div>
+        <h2>Multi-Agent Patterns</h2>
+        <p>Triage agent routing to specialist agents</p>
+        <br>
+        <pre><code class="language-python">@tool
+def route_to_billing(query: str) -> str:
+    """Route to Billing Specialist."""
+    response = billing_agent(query)
+    return response.message.content[0]["text"]
+
+triage_agent = Agent(
+    tools=[route_to_billing, route_to_technical, route_to_returns]
+)</code></pre>
+      </section>
+
+      <section>
+        <div class="module-header">MODULE 5</div>
+        <h2>Evals, Safety &amp; Observability</h2>
+        <p>Testing, protecting, and monitoring your agents</p>
+        <br>
+        <pre><code class="language-bash"># Run evaluation suite
+python module_05_evals/eval_suite.py --eval
+
+# Chat with guardrails
+python module_05_evals/eval_suite.py --chat
+
+# Enable OpenTelemetry tracing
+python module_05_evals/eval_suite.py --chat --otel</code></pre>
+      </section>
+
+      <section>
+        <div class="module-header">MODULE 6</div>
+        <h2>Deploy to AWS AgentCore</h2>
+        <p>Production deployment on Amazon Bedrock AgentCore</p>
+        <br>
+        <pre><code class="language-bash"># Configure deployment
+agentcore configure -e module_06_deploy/app.py
+
+# Launch on AgentCore Runtime
+agentcore launch
+
+# Invoke the deployed agent
+agentcore invoke '{"prompt": "What is your return policy?"}'</code></pre>
+      </section>
+
+      <!-- ═══════════════════════════════════════ -->
+      <!-- WRAP UP                                 -->
+      <!-- ═══════════════════════════════════════ -->
+      <section>
+        <h2>What You Built Today</h2>
+        <br>
+        <ul>
+          <li>✅ Single agent with system prompt (Module 1)</li>
+          <li>✅ Custom tools + MCP server (Module 2)</li>
+          <li>✅ Persistent memory + context management (Module 3)</li>
+          <li>✅ Multi-agent triage system (Module 4)</li>
+          <li>✅ Evaluation suite + safety guardrails (Module 5)</li>
+          <li>✅ Deployed agent on AWS AgentCore (Module 6)</li>
+        </ul>
+        <br>
+        <div class="highlight-box">
+          From a simple chatbot → production multi-agent system in 3 hours
+        </div>
+      </section>
+
+      <section>
+        <h2>Next Steps</h2>
+        <br>
+        <ul>
+          <li>📚 Explore <a href="https://strandsagents.com/">Strands Agents docs</a></li>
+          <li>🔬 Try <a href="https://github.com/strands-agents/samples">more examples</a></li>
+          <li>🏗️ Build with <a href="https://aws.amazon.com/bedrock/agentcore/">AgentCore</a> services</li>
+          <li>🤝 Join the <a href="https://github.com/strands-agents">community</a></li>
+          <li>📖 Read about <a href="https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents">agent evals
+              best practices</a></li>
+        </ul>
+        <br>
+        <h3>Thank You! 🎉</h3>
+        <p class="footnote">Workshop materials available at the docs site</p>
+      </section>
+
+    </div>
+
+    <footer class="presentation-footer">
+      Built with <span class="heart">&hearts;</span> by <a href="https://github.com/mkmurali" target="_blank">Murali</a>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js-mermaid-plugin@11/plugin/mermaid/mermaid.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      center: false,
+      slideNumber: true,
+      plugins: [RevealHighlight, RevealNotes, RevealMermaid],
+      mermaid: {
+        theme: 'default',
+        look: 'handDrawn',
+        flowchart: { curve: 'basis', useMaxWidth: true },
+        sequence: { useMaxWidth: true },
+        gantt: { useMaxWidth: true },
+      },
+      transition: 'slide',
+      width: 1200,
+      height: 700,
+    });
+  </script>
+</body>
+
+</html>

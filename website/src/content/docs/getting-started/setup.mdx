@@ -1,0 +1,126 @@
+---
+title: Environment Setup
+description: Get your development environment ready for the workshop
+---
+
+import { Steps, Aside, Code, Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Aside type="note" title="Why do prepared materials exist for an 'unscripted' event?">
+Agentic π Day was designed as a fully unscripted live-coding session. But with 110+ sign-ups, prepared these docs and a presentation as a safety net, not a script. The live session stays messy and real. These materials ensure every attendee walks away with complete code, concepts, and references regardless of where the live conversation goes.
+</Aside>
+
+## Workshop Modules
+
+This workshop is structured as a progressive, hands-on journey. You'll start by building a simple conversational agent and incrementally add capabilities (tools, memory, multi-agent orchestration, safety guardrails, and production deployment) until you have a fully functional **SupportBot** running on AWS. Each module builds directly on the previous one, so by the end you'll understand how every piece fits together.
+
+| Module | Topic | Duration |
+|--------|-------|----------|
+| 0 | Environment Setup & Intro | 20 min |
+| 1 | Your First Agent with Strands | 25 min |
+| 2 | Custom Tools & MCP Servers | 35 min |
+| 3 | Memory & Context Management | 30 min |
+| 4 | Multi-Agent Patterns | 30 min |
+| 5 | Evals, Safety & Observability | 30 min |
+| 6 | Deploy to AWS AgentCore | 25 min |
+
+## Prerequisites
+
+Before the workshop, make sure you have the following installed:
+
+- **Python 3.12+**: [Download Python](https://www.python.org/downloads/)
+- **AWS CLI**: [Install AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+- **AWS Account** with Amazon Bedrock access
+- **Git**: For cloning the workshop repository
+- A code editor (VS Code recommended)
+
+## Setup Steps
+
+<Steps>
+
+1. **Clone the workshop repository**
+
+   ```bash
+   git clone <workshop-repo-url>
+   cd agentic-ai-workshops
+   ```
+
+2. **Create a Python virtual environment**
+
+   ```bash
+   cd workshop
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   ```
+
+3. **Install dependencies**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Configure AWS credentials**
+
+   ```bash
+   aws configure
+   # Enter your AWS Access Key ID, Secret Access Key, and region (us-east-1)
+   ```
+
+   Optionally, you can use `aws login` and approve access in the browser.
+
+5. **Enable Bedrock model access**
+
+   Go to the [Amazon Bedrock console](https://console.aws.amazon.com/bedrock/) in `us-east-1` and enable access to **Anthropic models**. Anthropic models require submitting brief use case details in the console; approval is automatic and typically takes a few seconds. You no longer need to request access to specific models. Bedrock uses **serverless cross-region inference profiles**, so once your use case is approved, inference is available across regions.
+
+6. **Verify your setup**
+
+   ```bash
+   python module_00_setup/verify_setup.py
+   ```
+
+   You should see all checks passing:
+   ```
+   ========================================
+     Agentic AI Workshop - Environment Verification
+   ========================================
+     Results: 8/8 checks passed
+     Your environment is ready for the workshop!
+   ```
+
+</Steps>
+
+<Aside type="tip">
+If you're having trouble with AWS credentials, ask the workshop facilitator for temporary credentials.
+</Aside>
+
+## What's Installed
+
+| Package | Purpose |
+|---------|---------|
+| `strands-agents` | Core agent framework |
+| `strands-agents-tools` | Pre-built tool collection |
+| `mcp` | Model Context Protocol client |
+| `fastmcp` | Fast MCP server builder |
+| `boto3` | AWS SDK for Python |
+| `opentelemetry-*` | Observability and tracing |
+| `rich` | Pretty terminal output |
+
+## Project Structure
+
+```
+workshop/
+├── module_00_setup/       # This setup module
+├── module_01_first_agent/ # Basic agent
+├── module_02_tools_mcp/   # Tools + MCP server
+├── module_03_memory/      # Memory patterns
+├── module_04_multi_agent/ # Multi-agent system
+├── module_05_evals/       # Evals + safety
+├── module_06_deploy/      # AgentCore deployment
+├── shared/                # Shared data & utilities
+│   └── data.py            # Mock product/order data
+├── requirements.txt
+└── pyproject.toml
+```
+
+<Aside type="note">
+Each module builds on the previous one. We start with a simple agent and progressively add tools, memory, multi-agent patterns, evals, and deployment.
+</Aside>

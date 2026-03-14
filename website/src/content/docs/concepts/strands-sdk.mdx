@@ -1,0 +1,140 @@
+---
+title: Strands Agents SDK
+description: Overview of the Strands Agents framework for building AI agents
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+## What is Strands Agents?
+
+[Strands Agents](https://strandsagents.com/) is an open-source Python SDK from AWS that takes a **model-driven approach** to building AI agents. The core idea: define an agent with just a model, system prompt, and tools, let the LLM handle reasoning and orchestration.
+
+```python
+from strands import Agent
+
+agent = Agent(
+    system_prompt="You are a helpful assistant.",
+    tools=[my_tool],
+)
+response = agent("Help me with something")
+```
+
+Strands is used in production by multiple AWS teams, including Amazon Q Developer, AWS Glue, and VPC Reachability Analyzer.
+
+## Core Concepts
+
+### The Agent
+
+An `Agent` is the central abstraction. It wraps:
+- A **model** (Amazon Bedrock by default)
+- A **system prompt** (the agent's instructions)
+- A set of **tools** (what the agent can do)
+
+The agent runs an agentic loop: send the prompt to the model, let it reason, execute any tool calls, feed results back, repeat until done.
+
+### Tools
+
+Tools are Python functions decorated with `@tool` that the agent can call:
+
+```python
+from strands import tool
+
+@tool
+def get_weather(city: str) -> str:
+    """Get the current weather for a city.
+
+    Args:
+        city: The city name to check weather for.
+    """
+    return f"Sunny, 72F in {city}"
+```
+
+The docstring becomes the tool description, and type hints become the parameter schema. The LLM uses these to decide when and how to call the tool.
+
+### Model Providers
+
+Strands supports multiple model providers:
+
+| Provider | Usage |
+|----------|-------|
+| **Amazon Bedrock** (default) | `Agent()`, uses Claude Sonnet |
+| **Anthropic** | `Agent(model=AnthropicModel())` |
+| **OpenAI** | `Agent(model=OpenAIModel())` |
+| **Ollama** | `Agent(model=OllamaModel())` |
+| **LiteLLM** | `Agent(model=LiteLLMModel())` |
+
+### MCP Integration
+
+Strands has first-class support for the Model Context Protocol:
+
+```python
+from strands.tools.mcp import MCPClient
+from mcp import StdioServerParameters
+
+mcp_client = MCPClient(
+    StdioServerParameters(command="python", args=["my_mcp_server.py"])
+)
+
+with mcp_client:
+    tools = mcp_client.list_tools()
+    agent = Agent(tools=[*tools])
+```
+
+### Multi-Agent Patterns
+
+Strands supports several multi-agent patterns:
+
+**Agents-as-Tools:** Wrap agents as tools for hierarchical delegation
+```python
+@tool
+def ask_expert(question: str) -> str:
+    """Ask the domain expert agent."""
+    response = expert_agent(question)
+    return response.message.content[0]["text"]
+```
+
+**Swarm:** Dynamic handoffs between agents
+**Graph:** Directed agent workflows using `GraphBuilder`
+**A2A Protocol:** Cross-framework agent communication
+
+### Observability
+
+Built-in OpenTelemetry support:
+- Traces for every agent interaction
+- Spans for model calls, tool calls, and agent handoffs
+- Compatible with CloudWatch, Datadog, Jaeger, and other OTEL backends
+
+## Amazon Bedrock AgentCore
+
+[AgentCore](https://aws.amazon.com/bedrock/agentcore/) is AWS's managed platform for deploying agents:
+
+| Service | What It Does |
+|---------|-------------|
+| **Runtime** | Serverless agent hosting (up to 8-hour execution windows) |
+| **Gateway** | Convert APIs to MCP-compatible tools |
+| **Identity** | Auth integration (Cognito, Okta, Entra ID) |
+| **Memory** | Persistent cross-session agent memory |
+| **Observability** | CloudWatch dashboards and metrics |
+| **Policy** | Natural language guardrails (Cedar-based) |
+| **Evaluations** | 13 pre-built eval metrics |
+
+Deploy with the starter toolkit:
+```bash
+pip install bedrock-agentcore-starter-toolkit
+agentcore configure -e app.py
+agentcore launch
+agentcore invoke '{"prompt": "Hello!"}'
+```
+
+<Aside type="note">
+AgentCore works with any framework (CrewAI, LangGraph, etc.), not just Strands. But Strands + AgentCore is the most streamlined combination since both are designed by AWS.
+</Aside>
+
+## Key Resources
+
+- [Strands Agents Documentation](https://strandsagents.com/)
+- [GitHub: strands-agents/sdk-python](https://github.com/strands-agents/sdk-python)
+- [GitHub: strands-agents/samples](https://github.com/strands-agents/samples)
+- [AWS Blog: Introducing Strands Agents](https://aws.amazon.com/blogs/opensource/introducing-strands-agents-an-open-source-ai-agents-sdk/)
+- [Getting Started Course](https://github.com/aws-samples/sample-getting-started-with-strands-agents-course)
+- [Amazon Bedrock AgentCore](https://aws.amazon.com/bedrock/agentcore/)

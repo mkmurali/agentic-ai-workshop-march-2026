@@ -1,0 +1,259 @@
+/* Custom styles for Agentic AI Workshop presentation */
+
+:root {
+  --primary: #232f3e;
+  --accent: #ff9900;
+  --light: #f8f9fa;
+  --code-bg: #1e1e1e;
+}
+
+/* ─── Base Typography ─── */
+.reveal {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.reveal h1, .reveal h2, .reveal h3 {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.reveal h1 {
+  font-size: 2.2em;
+}
+
+.reveal h2 {
+  font-size: 1.6em;
+  border-bottom: 3px solid var(--accent);
+  padding-bottom: 0.3em;
+  display: inline-block;
+}
+
+.reveal .accent {
+  color: var(--accent);
+}
+
+/* ─── Consistent Slide Layout (left-aligned) ─── */
+.reveal .slides section {
+  text-align: left !important;
+}
+
+/* Title slide - centered exception */
+.reveal .slides > section.title-slide {
+  text-align: center !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.reveal .title-slide h1,
+.reveal .title-slide h2,
+.reveal .title-slide h3,
+.reveal .title-slide p {
+  text-align: center !important;
+  width: auto;
+}
+
+.reveal .title-slide h1 {
+  font-size: 2.5em;
+  color: var(--primary);
+}
+
+.reveal .title-slide p {
+  font-size: 1.1em;
+  color: #666;
+}
+
+/* ─── Tags ─── */
+.reveal .tag {
+  display: inline-block;
+  background: var(--accent);
+  color: white;
+  padding: 0.2em 0.6em;
+  border-radius: 4px;
+  font-size: 0.7em;
+  margin: 0.2em;
+}
+
+/* ─── Tables ─── */
+.reveal table {
+  font-size: 0.65em;
+  width: 100%;
+  margin: 0.5em 0;
+}
+
+.reveal table th {
+  background: var(--primary);
+  color: white;
+  padding: 0.5em 1em;
+}
+
+.reveal table td {
+  padding: 0.4em 1em;
+  border-bottom: 1px solid #ddd;
+}
+
+/* ─── Code Blocks ─── */
+.reveal pre {
+  font-size: 0.55em;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  width: 100%;
+  margin: 0.5em 0;
+}
+
+.reveal pre code {
+  padding: 1em;
+  max-height: 500px;
+}
+
+/* ─── Mermaid Diagrams ─── */
+.reveal .mermaid {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+}
+
+.reveal .mermaid svg {
+  max-width: 100% !important;
+  max-height: 420px !important;
+  height: auto !important;
+  width: auto !important;
+}
+
+/* Slides with diagrams: tighten spacing */
+.reveal section:has(.mermaid) h2 {
+  margin-bottom: 0.2em;
+}
+
+.reveal section:has(.mermaid) p {
+  margin: 0.2em 0;
+  font-size: 0.75em;
+}
+
+/* Legacy ASCII diagram (unused, kept for safety) */
+.reveal .diagram {
+  font-family: 'Courier New', monospace;
+  font-size: 0.5em;
+  line-height: 1.3;
+  background: var(--light);
+  padding: 1em;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+/* ─── Layout Helpers ─── */
+.reveal .two-col {
+  display: flex;
+  gap: 2em;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.reveal .two-col > div {
+  flex: 1;
+}
+
+/* ─── Highlight Box ─── */
+.reveal .highlight-box {
+  background: var(--light);
+  border-left: 4px solid var(--accent);
+  padding: 0.8em 1.2em;
+  margin: 0.5em 0;
+  text-align: left;
+  font-size: 0.8em;
+  border-radius: 0 8px 8px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ─── Module Headers ─── */
+.reveal .module-header {
+  background: var(--primary);
+  color: white;
+  padding: 0.3em 0.8em;
+  border-radius: 6px;
+  font-size: 0.6em;
+  display: inline-block;
+  margin-bottom: 0.5em;
+}
+
+/* ─── Lists ─── */
+.reveal ul {
+  font-size: 0.85em;
+  width: 100%;
+}
+
+.reveal li {
+  margin-bottom: 0.3em;
+}
+
+/* ─── Text Size Classes ─── */
+.reveal .subtitle {
+  font-size: 0.7em;
+  color: #999;
+}
+
+.reveal .footnote {
+  font-size: 0.75em;
+  color: #555;
+}
+
+.reveal .component-title {
+  font-size: 0.9em;
+}
+
+/* ─── Three Column Layout ─── */
+.reveal .three-col {
+  display: flex;
+  gap: 1.5em;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.reveal .three-col > div {
+  flex: 1;
+  text-align: center;
+}
+
+.reveal .col-title {
+  font-size: 0.7em;
+  margin: 0 0 0.3em;
+  text-align: center;
+}
+
+/* ─── Hero Image (title slide) ─── */
+.reveal .hero-image {
+  max-height: 250px;
+  width: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  margin-bottom: 0.5em;
+}
+
+/* ─── Persistent Footer ─── */
+.presentation-footer {
+  position: fixed;
+  bottom: 12px;
+  right: 24px;
+  font-size: 0.55em;
+  color: #999;
+  z-index: 100;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.presentation-footer .heart {
+  color: #e25555;
+  font-size: 1.1em;
+}
+
+.presentation-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.presentation-footer a:hover {
+  text-decoration: underline;
+}

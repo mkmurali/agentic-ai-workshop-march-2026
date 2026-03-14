@@ -1,0 +1,84 @@
+---
+title: Workshop Outline
+description: "Agentic π Day | 3.14 hours of live-coding, deep dives, and open Q&A"
+---
+
+This workshop is structured as a progressive, hands-on journey. You'll start by building a simple conversational agent and incrementally add capabilities (tools, memory, multi-agent orchestration, safety guardrails, and production deployment) until you have a fully functional **SupportBot** running on AWS. Each module builds directly on the previous one, so by the end you'll understand how every piece fits together.
+
+| Time | Module | Topic | Key Activity |
+|------|--------|-------|-------------|
+| 0:00 | **Setup & Intro** | Environment + Concepts | Run verify_setup.py + presentation |
+| 0:20 | **Module 1** | Your First Agent | Build basic FAQ agent |
+| 0:45 | **Module 2** | Custom Tools & MCP | Add tools + build MCP server |
+| 1:20 | **Module 3** | Memory & Context | Add persistent memory |
+| 1:50 | **Module 4** | Multi-Agent Patterns | Build triage + specialists |
+| 2:20 | **Module 5** | Evals, Safety & Observability | Run eval suite + guardrails |
+| 2:50 | **Module 6** | Deploy to AWS | Deploy to AgentCore |
+| 3:15 | **Wrap-up** | Review & Next Steps | Q&A |
+
+---
+
+## Learning Objectives by Module
+
+### Module 0: Environment Setup & Intro (20 min)
+- Verify Python 3.12+, AWS CLI, and Bedrock access
+- Install Strands Agents SDK and dependencies
+- Understand the project structure
+
+### Module 1: Your First Agent (25 min)
+- Create a Strands Agent with a system prompt
+- Understand the agentic loop (reason → respond)
+- Test conversational interactions
+- **Key concept:** Agent = Model + System Prompt + Tools
+
+### Module 2: Custom Tools & MCP (35 min)
+- Build tools with the `@tool` decorator
+- Understand tool schemas from docstrings and type hints
+- Build an MCP server with FastMCP
+- Connect agent to MCP server via stdio transport
+- **Key concept:** Tools extend agents from "answering" to "doing"
+
+### Module 3: Memory & Context Management (30 min)
+- Implement persistent customer memory
+- Learn hierarchical context (L1/L2/L3)
+- Understand token optimization strategies
+- Explore the Skills.md pattern
+- **Key concept:** Load context on demand, not all at once
+
+### Module 4: Multi-Agent Patterns (30 min)
+- Build specialist agents (billing, technical, returns)
+- Implement triage agent with Agents-as-Tools pattern
+- Understand Swarm, Graph, and Workflow patterns
+- **Key concept:** Multi-agent enables specialization
+
+### Module 5: Evals, Safety & Observability (30 min)
+- Build an evaluation suite with test cases
+- Implement input/output safety guardrails
+- Use LLM-as-Judge for quality assessment
+- Set up OpenTelemetry tracing
+- **Key concept:** Agent evals are non-deterministic. Score, don't pass/fail
+
+### Module 6: Deploy to AWS AgentCore (25 min)
+- Wrap agent with BedrockAgentCoreApp
+- Deploy with AgentCore starter toolkit
+- Test the deployed agent
+- **Key concept:** AgentCore = managed agent infrastructure
+
+---
+
+## Prerequisites
+
+- Python 3.12+
+- AWS account with Bedrock access (Claude Sonnet enabled)
+- Basic Python knowledge
+- Familiarity with the command line
+- No prior AI/ML experience required
+
+## What Attendees Walk Away With
+
+1. A working multi-agent customer support system
+2. Understanding of agentic AI architecture patterns
+3. Hands-on experience with Strands Agents SDK
+4. Knowledge of MCP, memory, evals, safety, and observability
+5. A deployed agent on AWS AgentCore
+6. Access to all workshop materials and code

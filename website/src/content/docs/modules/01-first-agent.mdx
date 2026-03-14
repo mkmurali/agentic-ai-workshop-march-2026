@@ -1,0 +1,103 @@
+---
+title: "Module 1: Your First Agent"
+description: Build a simple customer support agent with Strands Agents SDK
+---
+
+import { Steps, Aside, Code } from '@astrojs/starlight/components';
+
+## Learning Objectives
+
+- Understand the Strands Agent abstraction
+- Create an agent with a system prompt
+- Experience the agentic loop (reason → respond)
+- Interact with your first AI agent
+
+## Concepts
+
+In this module, we create the simplest possible agent: **a model + a system prompt**. No tools, no memory, just an LLM that knows how to be a customer support agent.
+
+```mermaid
+flowchart LR
+    A[💬 User Message] --> B[🧠 System Prompt + Model] --> C[✅ Response]
+```
+
+The system prompt acts as the agent's "job description". It defines personality, responsibilities, and constraints.
+
+## Hands-On
+
+<Steps>
+
+1. **Open the module file**
+
+   ```bash
+   # From the workshop/ directory
+   code module_01_first_agent/agent.py
+   ```
+
+2. **Review the system prompt**
+
+   The system prompt defines SupportBot's behavior:
+   ```python
+   SYSTEM_PROMPT = """You are SupportBot, a friendly and helpful
+   customer support agent for TechStore..."""
+   ```
+
+   Key elements of a good system prompt:
+   - **Role:** Who is the agent?
+   - **Responsibilities:** What should it do?
+   - **Constraints:** What should it NOT do?
+   - **Policies:** Company-specific rules
+
+3. **Review the agent creation**
+
+   ```python
+   from strands import Agent
+
+   # Just a model + system prompt - the simplest agent
+   agent = Agent(system_prompt=SYSTEM_PROMPT)
+   ```
+
+   By default, Strands uses Amazon Bedrock with Claude Sonnet.
+
+4. **Run the agent**
+
+   ```bash
+   python module_01_first_agent/agent.py
+   ```
+
+5. **Test with these prompts**
+
+   ```
+   You: Hi there!
+   You: What's your return policy?
+   You: How long does shipping take?
+   You: Can you look up my order?
+   ```
+
+</Steps>
+
+## What's Happening
+
+When you send a message, the agent:
+
+1. Combines your message with the system prompt
+2. Sends it to Claude Sonnet via Amazon Bedrock
+3. The LLM reasons about the best response
+4. Streams the response back token by token
+
+Notice that the agent can answer policy questions from its system prompt, but **cannot look up specific orders**, it has no tools yet. That's what we'll add in the next module.
+
+<Aside type="tip">
+Try asking the agent to look up an order. It should tell you it can't. This is the correct behavior since it doesn't have access to any data tools yet.
+</Aside>
+
+## Key Takeaways
+
+- An agent is fundamentally: **Model + System Prompt + Tools**
+- The system prompt is critical for agent behavior
+- Without tools, the agent can only use knowledge baked into the prompt
+- Strands handles the agentic loop, you just define what the agent should be
+
+## Next: Adding Tools
+
+In the next module, we'll give the agent tools to look up orders, search products, and query the FAQ, transforming it from a "smart parrot" to a capable support agent.

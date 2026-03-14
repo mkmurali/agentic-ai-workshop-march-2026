@@ -1,0 +1,27 @@
+[project]
+name = "agentic-ai-workshop"
+version = "1.0.0"
+description = "Hands-on workshop: Building Agentic AI Applications with Strands Agents SDK"
+requires-python = ">=3.12"
+dependencies = [
+    "strands-agents>=1.0.0",
+    "strands-agents-tools>=0.1.0",
+    "mcp>=1.0.0",
+    "fastmcp>=0.1.0",
+    "boto3>=1.35.0",
+    "opentelemetry-api>=1.20.0",
+    "opentelemetry-sdk>=1.20.0",
+    "opentelemetry-exporter-otlp>=1.20.0",
+    "rich>=13.0.0",
+]
+
+[project.optional-dependencies]
+deploy = [
+    "bedrock-agentcore-starter-toolkit",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.20.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.backends._legacy:_Backend"

@@ -1,0 +1,12 @@
+{
+  "name": "agentic-ai-workshop-presentation",
+  "version": "1.0.0",
+  "description": "Reveal.js presentation for the Agentic AI Workshop",
+  "scripts": {
+    "dev": "npx serve .",
+    "start": "npx serve .",
+    "build": "node scripts/copy-to-docs.cjs"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

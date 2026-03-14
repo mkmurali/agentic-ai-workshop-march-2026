@@ -1,0 +1,61 @@
+---
+title: "Agentic π Day"
+description: "3.14 Hours of Agentic AI | Unscripted Building & AMA"
+template: splash
+hero:
+  tagline: "March 14, 2026 at 3:14 PM | 3.14 hours of live-coding, deep dives, and open Q&A on everything Agentic AI."
+  image:
+    html: '<img src="/agentic-ai-workshop-march-2026/images/agenticpi-day.png" alt="Agentic Pi Day | 3.14 hours of unscripted building + AMA" style="border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.15); max-width: 100%; width: 550px;" />'
+  actions:
+    - text: Get Started
+      link: /agentic-ai-workshop-march-2026/getting-started/setup/
+      icon: right-arrow
+      variant: primary
+    - text: View Concepts
+      link: /agentic-ai-workshop-march-2026/concepts/intro-to-agentic-ai/
+      variant: minimal
+    - text: Presentation
+      link: /agentic-ai-workshop-march-2026/presentation/
+      icon: right-arrow
+      variant: minimal
+---
+
+import { Card, CardGrid, Aside } from '@astrojs/starlight/components';
+
+## A Little Background...
+
+No slides. No scripts. No fluff. That was the plan.
+
+I posted on LinkedIn on March 10th around noon, announcing a live, unscripted session: for exactly **3.14 hours** on **Pi Day (March 14, 2026)**, starting at **3:14 PM**, we're going LIVE to talk about everything Agentic AI, and building a real product right in front of you.
+
+Live-coding from scratch. Architecture decisions. Debugging. The whole unfiltered journey. Open Q&A the entire time, whether you're just discovering what "agentic" means or you're already shipping multi-agent systems.
+
+**Then 110+ people signed up (and counting, as of 24 hours before the event).** And I realized: while the spirit stays unscripted, I owe it to every attendee to make sure they walk away with something real. So prepared these workshop notes, a full docs site, and a presentation, not as a script to follow, but as a safety net to make sure the key concepts, code, and patterns are all here if the live session goes off the rails (which it will, beautifully).
+
+<Aside type="tip" title="The only thing scripted? The start time.">
+3:14 PM. Because... π. Everything else is live, messy, and real.
+</Aside>
+
+## What You'll Build
+
+<CardGrid stagger>
+  <Card title="SupportBot" icon="rocket">
+    A multi-agent customer support system with triage routing, specialist agents, memory, and safety guardrails.
+  </Card>
+  <Card title="Custom Tools & MCP" icon="puzzle">
+    Build custom tools with the `@tool` decorator and create an MCP server for product catalog access.
+  </Card>
+  <Card title="Evals & Observability" icon="magnifier">
+    Add evaluation suites, LLM-as-Judge, safety guardrails, and OpenTelemetry tracing.
+  </Card>
+  <Card title="Deploy to AWS" icon="setting">
+    Deploy your agent to Amazon Bedrock AgentCore for production-grade hosting.
+  </Card>
+</CardGrid>
+
+## Who This Is For
+
+- **Curious developers** who keep hearing "agentic AI" and want to see it in action
+- **Engineers already building** and looking for real-world patterns
+- **Leaders evaluating** agentic approaches for their teams
+- **Anyone** who thinks the best way to learn is to watch someone build

@@ -1,0 +1,5 @@
+/* Make the hero image larger on the landing page */
+.hero .sl-flex img {
+  width: 100% !important;
+  max-width: 600px !important;
+}
