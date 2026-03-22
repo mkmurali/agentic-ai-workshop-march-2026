@@ -20,6 +20,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from strands import Agent, tool
 from shared.data import ORDERS, PRODUCTS, FAQ, TICKETS, next_ticket_id
+from shared.model import model
 
 # ──────────────────────────────────────────────
 # Specialist Agent: Billing
@@ -47,6 +48,7 @@ def billing_lookup_order(order_id: str) -> dict:
 
 
 billing_agent = Agent(
+    model=model,
     system_prompt="""You are a Billing Specialist at TechStore. You handle:
 - Order total inquiries and payment questions
 - Invoice requests and receipt generation
@@ -97,6 +99,7 @@ def tech_search_faq(question: str) -> list[dict]:
 
 
 technical_agent = Agent(
+    model=model,
     system_prompt="""You are a Technical Support Specialist at TechStore. You handle:
 - Product compatibility questions
 - Setup and configuration help
@@ -164,6 +167,7 @@ def initiate_return(order_id: str, reason: str) -> dict:
 
 
 returns_agent = Agent(
+    model=model,
     system_prompt="""You are a Returns & Shipping Specialist at TechStore. You handle:
 - Return requests and return policy questions
 - Shipping status and tracking inquiries
@@ -226,6 +230,7 @@ def route_to_returns(query: str) -> str:
 
 # The triage agent decides which specialist to route to
 triage_agent = Agent(
+    model=model,
     system_prompt="""You are the Triage Agent for TechStore customer support.
 
 Your ONLY job is to:

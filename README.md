@@ -24,7 +24,9 @@ agentic-ai-workshops/
 │   ├── module_04_multi_agent/  # Multi-agent triage system
 │   ├── module_05_evals/        # Evals + safety + observability
 │   ├── module_06_deploy/       # AgentCore deployment
-│   └── shared/                 # Shared mock data
+│   └── shared/                 # Shared model config & mock data
+│       ├── model.py            # ⬅ Configure your LLM here (one place for all modules)
+│       └── data.py             # Mock product/order data
 ├── presentation/               # Reveal.js slide deck
 └── README.md
 ```
@@ -40,6 +42,20 @@ source .venv/bin/activate
 pip install -r requirements.txt
 python module_00_setup/verify_setup.py
 ```
+
+### Choose Your Model
+
+All modules share a single model configuration in `workshop/shared/model.py`. Open it and uncomment **one** option:
+
+| Option | Provider | What you need |
+|--------|----------|---------------|
+| 1 | AWS Bedrock (Claude Sonnet) | AWS credentials configured |
+| 2 | AWS Bedrock (Claude Haiku) | AWS credentials configured |
+| 3 | OpenAI (GPT-4o) | `OPENAI_API_KEY` env var |
+| 4 | LiteLLM (Anthropic, Ollama, etc.) | Depends on provider |
+| 5 | OpenRouter via LiteLLM | `OPENROUTER_API_KEY` env var |
+
+Change it once, and every module picks it up automatically.
 
 ### Documentation Site
 
@@ -59,9 +75,9 @@ npx serve .
 ## Prerequisites
 
 - Python 3.12+
-- Node.js 18+
-- AWS account with Bedrock access (Claude Sonnet)
-- AWS CLI configured
+- Node.js 18+ (for documentation site only)
+- **One of:** AWS credentials (for Bedrock), an OpenAI API key, an OpenRouter API key, or another LLM provider supported by Strands
+- AWS account with Bedrock access is **required only for Module 6** (deployment)
 
 ## Workshop Modules
 
@@ -79,8 +95,8 @@ npx serve .
 
 ## Tech Stack
 
-- [Strands Agents SDK](https://strandsagents.com/) - Agent framework
-- [Amazon Bedrock](https://aws.amazon.com/bedrock/) - Model provider
-- [Amazon Bedrock AgentCore](https://aws.amazon.com/bedrock/agentcore/) - Deployment platform
+- [Strands Agents SDK](https://strandsagents.com/) - Agent framework (supports Bedrock, OpenAI, LiteLLM, and more)
+- [Amazon Bedrock](https://aws.amazon.com/bedrock/) - Model provider (default, optional)
+- [Amazon Bedrock AgentCore](https://aws.amazon.com/bedrock/agentcore/) - Deployment platform (Module 6)
 - [Astro Starlight](https://starlight.astro.build/) - Documentation site
 - [Reveal.js](https://revealjs.com/) - Presentation framework

@@ -22,6 +22,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from strands import Agent, tool
 from shared.data import ORDERS, PRODUCTS, FAQ
+from shared.model import model
 
 # ──────────────────────────────────────────────
 # Persistent Memory Store
@@ -178,6 +179,7 @@ SYSTEM_PROMPT = """You are SupportBot, a friendly customer support agent for Tec
 # ──────────────────────────────────────────────
 agent = Agent(
     system_prompt=SYSTEM_PROMPT,
+    model=model,
     tools=[
         lookup_order,
         search_products,

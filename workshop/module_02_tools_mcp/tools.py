@@ -21,6 +21,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from strands import Agent, tool
 from shared.data import ORDERS, PRODUCTS, FAQ, TICKETS, next_ticket_id
+from shared.model import model
 
 # ──────────────────────────────────────────────
 # Custom Tools - Each @tool function becomes available to the agent
@@ -165,10 +166,9 @@ Guidelines:
 # ──────────────────────────────────────────────
 # Create Agent with Tools
 # ──────────────────────────────────────────────
-agent = Agent(
-    system_prompt=SYSTEM_PROMPT,
-    tools=[lookup_order, search_products, search_faq, create_support_ticket, check_product_availability],
-)
+
+agent = Agent(system_prompt=SYSTEM_PROMPT, model=model,
+              tools=[lookup_order, search_products, search_faq, create_support_ticket, check_product_availability])
 
 
 def main():

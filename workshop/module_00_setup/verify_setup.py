@@ -7,6 +7,7 @@ Usage:
     python module_00_setup/verify_setup.py
 """
 
+import os
 import sys
 
 
@@ -39,7 +40,41 @@ def check_strands_tools():
         return False
 
 
+def check_model_config():
+    """Check that shared/model.py has an active (uncommented) model configured."""
+    try:
+        # Add workshop root to path so shared.model is importable
+        workshop_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        sys.path.insert(0, workshop_dir)
+        from shared.model import model  # noqa: F401
+        model_type = type(model).__name__
+        print(f"  [OK] Model configured: {model_type}")
+        return True
+    except ImportError:
+        print("  [FAIL] No model configured in shared/model.py")
+        print("  Open shared/model.py and uncomment one of the model options.")
+        return False
+    except Exception as e:
+        print(f"  [FAIL] Error loading model config: {e}")
+        print("  Check shared/model.py for syntax errors or missing API keys.")
+        return False
+
+
+def _is_using_bedrock():
+    """Check if the configured model is a BedrockModel."""
+    try:
+        workshop_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        sys.path.insert(0, workshop_dir)
+        from shared.model import model
+        return type(model).__name__ == "BedrockModel"
+    except Exception:
+        return False
+
+
 def check_boto3():
+    if not _is_using_bedrock():
+        print("  [SKIP] Not using AWS Bedrock — boto3 not required")
+        return True
     try:
         import boto3  # noqa: F401
         print("  [OK] boto3 installed")
@@ -50,6 +85,9 @@ def check_boto3():
 
 
 def check_aws_credentials():
+    if not _is_using_bedrock():
+        print("  [SKIP] Not using AWS Bedrock — AWS credentials not required")
+        return True
     try:
         import boto3
         sts = boto3.client("sts")
@@ -63,6 +101,9 @@ def check_aws_credentials():
 
 
 def check_bedrock_access():
+    if not _is_using_bedrock():
+        print("  [SKIP] Not using AWS Bedrock — Bedrock access not required")
+        return True
     try:
         import boto3
         client = boto3.client("bedrock-runtime", region_name="us-east-1")
@@ -91,7 +132,7 @@ def check_opentelemetry():
         print("  [OK] opentelemetry installed")
         return True
     except ImportError:
-        print("  [WARN] opentelemetry not installed (optional for Module 6)")
+        print("  [WARN] opentelemetry not installed (optional for Module 5)")
         return True  # Not a hard requirement
 
 
@@ -105,6 +146,7 @@ def main():
         ("Python Version", check_python_version),
         ("Strands Agents SDK", check_strands),
         ("Strands Agents Tools", check_strands_tools),
+        ("Model Configuration", check_model_config),
         ("Boto3 (AWS SDK)", check_boto3),
         ("AWS Credentials", check_aws_credentials),
         ("Amazon Bedrock Access", check_bedrock_access),

@@ -13,7 +13,14 @@ Usage:
     python module_01_first_agent/agent.py
 """
 
+import sys
+import os
+
+# Add parent directory to path for shared imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from strands import Agent
+from shared.model import model
 
 # ──────────────────────────────────────────────
 # System Prompt - Defines the agent's personality and behavior
@@ -42,8 +49,8 @@ Always greet the customer warmly and ask how you can help if they haven't stated
 # ──────────────────────────────────────────────
 # The simplest possible agent: just a model + system prompt
 # By default, Strands uses Amazon Bedrock with Claude Sonnet
-agent = Agent(system_prompt=SYSTEM_PROMPT)
 
+agent = Agent(system_prompt=SYSTEM_PROMPT, model=model)
 
 def main():
     print("=" * 60)

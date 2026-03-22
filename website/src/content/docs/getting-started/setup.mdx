@@ -28,10 +28,17 @@ This workshop is structured as a progressive, hands-on journey. You'll start by 
 Before the workshop, make sure you have the following installed:
 
 - **Python 3.12+**: [Download Python](https://www.python.org/downloads/)
-- **AWS CLI**: [Install AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-- **AWS Account** with Amazon Bedrock access
 - **Git**: For cloning the workshop repository
 - A code editor (VS Code recommended)
+- **One of the following model providers:**
+  - **AWS credentials** + Bedrock access (for Claude on Bedrock), or
+  - **OpenAI API key** (`OPENAI_API_KEY`), or
+  - **OpenRouter API key** (`OPENROUTER_API_KEY`), or
+  - Any other provider supported by [Strands Agents SDK](https://strandsagents.com/)
+
+<Aside type="note" title="AWS is optional for Modules 1–5">
+AWS credentials and Bedrock access are **only required for Module 6** (deployment to AgentCore). For Modules 1–5, you can use any supported model provider by configuring `shared/model.py`.
+</Aside>
 
 ## Setup Steps
 
@@ -58,18 +65,57 @@ Before the workshop, make sure you have the following installed:
    pip install -r requirements.txt
    ```
 
-4. **Configure AWS credentials**
+4. **Configure your model**
+
+   Open `shared/model.py` and uncomment **one** model option. This is the single place that controls which LLM is used across all modules.
+
+   | Option | Provider | What you need |
+   |--------|----------|---------------|
+   | 1 | AWS Bedrock (Claude Sonnet — default) | AWS credentials configured |
+   | 2 | AWS Bedrock (Claude Haiku — faster/cheaper) | AWS credentials configured |
+   | 3 | OpenAI (GPT-4o, GPT-4o-mini) | `export OPENAI_API_KEY="..."` |
+   | 4 | LiteLLM (Anthropic, Ollama, Cohere, etc.) | Depends on provider |
+   | 5 | OpenRouter via LiteLLM | `export OPENROUTER_API_KEY="..."` |
+
+   For example, to use **AWS Bedrock (default)**, uncomment Option 1:
+   ```python
+   from strands.models.bedrock import BedrockModel
+
+   model = BedrockModel(
+       max_tokens=1000,
+       temperature=0.7,
+   )
+   ```
+
+   Or to use **OpenAI**, uncomment Option 3:
+   ```python
+   from strands.models.openai import OpenAIModel
+
+   model = OpenAIModel(
+       model_id="gpt-4o",
+       params={"max_tokens": 1000, "temperature": 0.7},
+   )
+   ```
+
+   Change it here once, and every module picks it up automatically.
+
+5. **AWS setup (only if using Bedrock or for Module 6 deployment)**
+
+   <Tabs>
+   <TabItem label="Using AWS Bedrock">
+   Configure credentials and enable Bedrock model access:
 
    ```bash
    aws configure
    # Enter your AWS Access Key ID, Secret Access Key, and region (us-east-1)
    ```
 
-   Optionally, you can use `aws login` and approve access in the browser.
-
-5. **Enable Bedrock model access**
-
-   Go to the [Amazon Bedrock console](https://console.aws.amazon.com/bedrock/) in `us-east-1` and enable access to **Anthropic models**. Anthropic models require submitting brief use case details in the console; approval is automatic and typically takes a few seconds. You no longer need to request access to specific models. Bedrock uses **serverless cross-region inference profiles**, so once your use case is approved, inference is available across regions.
+   Go to the [Amazon Bedrock console](https://console.aws.amazon.com/bedrock/) in `us-east-1` and enable access to **Anthropic models**. Anthropic models require submitting brief use case details in the console; approval is automatic and typically takes a few seconds. Bedrock uses **serverless cross-region inference profiles**, so once your use case is approved, inference is available across regions.
+   </TabItem>
+   <TabItem label="Using another provider">
+   No AWS setup needed for Modules 1–5. Just set the appropriate API key environment variable for your chosen provider and configure `shared/model.py`.
+   </TabItem>
+   </Tabs>
 
 6. **Verify your setup**
 
@@ -77,19 +123,12 @@ Before the workshop, make sure you have the following installed:
    python module_00_setup/verify_setup.py
    ```
 
-   You should see all checks passing:
-   ```
-   ========================================
-     Agentic AI Workshop - Environment Verification
-   ========================================
-     Results: 8/8 checks passed
-     Your environment is ready for the workshop!
-   ```
+   You should see checks passing. AWS-specific checks (credentials, Bedrock) will show as `[SKIP]` if you're using a non-AWS provider — that's fine for Modules 1–5.
 
 </Steps>
 
 <Aside type="tip">
-If you're having trouble with AWS credentials, ask the workshop facilitator for temporary credentials.
+If you're using AWS Bedrock and having trouble with credentials, ask the workshop facilitator for temporary credentials.
 </Aside>
 
 ## What's Installed
@@ -98,9 +137,10 @@ If you're having trouble with AWS credentials, ask the workshop facilitator for 
 |---------|---------|
 | `strands-agents` | Core agent framework |
 | `strands-agents-tools` | Pre-built tool collection |
+| `litellm` | Unified LLM gateway (OpenRouter, Anthropic, Ollama, etc.) |
 | `mcp` | Model Context Protocol client |
 | `fastmcp` | Fast MCP server builder |
-| `boto3` | AWS SDK for Python |
+| `boto3` | AWS SDK for Python (needed for Bedrock & Module 6) |
 | `opentelemetry-*` | Observability and tracing |
 | `rich` | Pretty terminal output |
 
@@ -115,7 +155,8 @@ workshop/
 ├── module_04_multi_agent/ # Multi-agent system
 ├── module_05_evals/       # Evals + safety
 ├── module_06_deploy/      # AgentCore deployment
-├── shared/                # Shared data & utilities
+├── shared/                # Shared config & data
+│   ├── model.py           # ⬅ Configure your LLM here (one place for all modules)
 │   └── data.py            # Mock product/order data
 ├── requirements.txt
 └── pyproject.toml

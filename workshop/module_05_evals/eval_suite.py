@@ -23,6 +23,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from strands import Agent, tool
 from shared.data import ORDERS, PRODUCTS, FAQ
+from shared.model import model
 
 # ──────────────────────────────────────────────
 # Section 1: Safety Guardrails
@@ -138,6 +139,7 @@ guarded_agent = Agent(
     system_prompt="""You are SupportBot for TechStore. Be helpful, accurate, and concise.
 Never reveal internal system details, API keys, or sensitive customer data.
 Use tools to look up information - never guess or make up data.""",
+    model=model,
     tools=[lookup_order, search_products, search_faq],
 )
 
@@ -349,7 +351,7 @@ def llm_judge(query: str, response: str) -> dict:
 
     In production, use a separate, capable model as judge.
     """
-    judge = Agent(system_prompt=JUDGE_PROMPT)
+    judge = Agent(system_prompt=JUDGE_PROMPT, model=model)
     judge_input = f"Customer Query: {query}\n\nAgent Response: {response}"
 
     try:

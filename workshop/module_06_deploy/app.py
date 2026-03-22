@@ -24,6 +24,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from strands import Agent, tool
 from shared.data import ORDERS, PRODUCTS, FAQ, TICKETS, next_ticket_id
+from shared.model import model
 
 # ──────────────────────────────────────────────
 # Tools (same as previous modules)
@@ -115,6 +116,7 @@ Guidelines:
 
 agent = Agent(
     system_prompt=SYSTEM_PROMPT,
+    model=model,
     tools=[lookup_order, search_products, search_faq, create_support_ticket],
 )
 

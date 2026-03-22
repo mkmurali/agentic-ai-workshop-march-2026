@@ -23,6 +23,7 @@ from strands.tools.mcp import MCPClient
 from mcp import StdioServerParameters, stdio_client
 
 from shared.data import FAQ
+from shared.model import model
 
 # ──────────────────────────────────────────────
 # Connect to the MCP Server
@@ -91,6 +92,7 @@ def main():
         # Create agent with both local tools and MCP tools
         agent = Agent(
             system_prompt=SYSTEM_PROMPT,
+            model=model,
             tools=[search_faq, *mcp_tools],
         )
 
