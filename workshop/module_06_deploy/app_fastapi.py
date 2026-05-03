@@ -16,6 +16,7 @@ Usage (Docker):
 
 import sys
 import os
+import logging
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -23,6 +24,8 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from strands import Agent, tool
 from shared.data import ORDERS, PRODUCTS, FAQ
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI(title="SupportBot API", version="1.0.0")
 
@@ -115,5 +118,9 @@ async def invoke_agent(request: InvocationRequest):
             response=response_text,
             session_id=request.session_id,
         )
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception:
+        logger.exception("Agent invocation failed")
+        raise HTTPException(
+            status_code=500,
+            detail="An internal error occurred. Please try again later.",
+        )
