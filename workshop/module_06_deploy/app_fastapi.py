@@ -16,6 +16,8 @@ Usage (Docker):
 
 import sys
 import os
+import logging
+import uuid
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -25,6 +27,9 @@ from strands import Agent, tool
 from shared.data import ORDERS, PRODUCTS, FAQ
 
 app = FastAPI(title="SupportBot API", version="1.0.0")
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 
 # ──────────────────────────────────────────────
@@ -116,4 +121,9 @@ async def invoke_agent(request: InvocationRequest):
             session_id=request.session_id,
         )
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        error_id = str(uuid.uuid4())
+        logger.exception("Agent invocation failed [error_id=%s]", error_id)
+        raise HTTPException(
+            status_code=500,
+            detail=f"Internal server error. Reference ID: {error_id}"
+        )
