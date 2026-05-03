@@ -86,8 +86,12 @@ model = BedrockModel(
 # # ══════════════════════════════════════════════
 # # Get your key at https://openrouter.ai/keys
 # # pip install 'strands-agents[litellm]' strands-agents-tools
-# # export OPENROUTER_API_KEY="YOUR_KEY_HERE" or
-# os.environ["OPENROUTER_API_KEY"] = "YOUR_KEY_HERE"
+# #
+# # Set your key in the environment BEFORE running (NEVER hardcode keys in source):
+# #   export OPENROUTER_API_KEY="your-actual-key-here"
+# # or add it to a .env file (ensure .env is in .gitignore).
+# #
+# # os.environ["OPENROUTER_API_KEY"] = "YOUR_KEY_HERE"  # <-- do not uncomment; use shell export instead
 
 # from strands.models.litellm import LiteLLMModel
 # model = LiteLLMModel(
