@@ -16,13 +16,16 @@ Usage (Docker):
 
 import sys
 import os
+import logging
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from strands import Agent, tool
 from shared.data import ORDERS, PRODUCTS, FAQ
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI(title="SupportBot API", version="1.0.0")
 
@@ -90,7 +93,7 @@ agent = Agent(
 # ──────────────────────────────────────────────
 
 class InvocationRequest(BaseModel):
-    prompt: str
+    prompt: str = Field(..., min_length=1, max_length=4000)
     session_id: str | None = None
 
 
@@ -115,5 +118,7 @@ async def invoke_agent(request: InvocationRequest):
             response=response_text,
             session_id=request.session_id,
         )
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception:
+        # Log the full error server-side for debugging, but do not expose internals to clients
+        logger.exception("Agent invocation failed")
+        raise HTTPException(status_code=500, detail="Internal server error. Please try again later.")
